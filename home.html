@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <script>
+      if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+      } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.open(
+        "GET",
+        "https://uvdata.arpansa.gov.au/xml/uvvalues.xml",
+        false
+      );
+      xmlhttp.send();
+      xmlDoc = xmlhttp.responseXML;
+      document.write("<table border='1'>");
+      var x = xmlDoc.getElementsByTagName("location");
+    </script>
+    <script type="text/javascript">
+      var d = new Date();
+      var weekday = new Array(
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      );
+      var myDate = new Date();
+      var hrs = myDate.getHours();
+
+      var greet;
+      if (hrs < 10) greet = "early morning";
+      else if (hrs >= 10 && hrs < 12) greet = "late morning";
+      else if (hrs >= 12 && hrs < 17) greet = "afternoon";
+      else if (hrs >= 17 && hrs < 20) greet = "evening";
+      else if (hrs >= 20 && hrs <= 24) greet = "night";
+
+      var activity;
+      if (hrs < 9) activity = "in bed or at the gym";
+      else if (hrs >= 9 && hrs < 14) activity = "working";
+      else if (hrs >= 14 && hrs < 16) activity = "indoor swimming";
+      else if (hrs >= 16 && hrs < 19) activity = "working or at the gym";
+      else if (hrs >= 19 && hrs <= 24) activity = "working at home";
+    </script>
+
+    <title>Probability</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <meta http-equiv="refresh" content="3600" />
+  <body>
+    <div class="header">
+      <h1>What is Deedee doing today?</h1>
+
+      <p>
+        <script>
+          document.write("It is  " + weekday[d.getDay()] + " " + greet + ",");
+
+          document.write("<br> the UV rating is ");
+          document.write(
+            x[14].getElementsByTagName("index")[0].childNodes[0].nodeValue
+          );
+          document.write("<br> Deedee is probably " + activity + "...");
+        </script>
+      </p>
+    </div>
+  </body>
+</html>
